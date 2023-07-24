@@ -3701,10 +3701,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      title: '',
+      text: '',
+      status: 'ToDo',
+      errors: {}
+    };
+  },
   methods: {
-    closeModal: function closeModal() {
+    close: function close() {
       this.$emit('close');
+    },
+    submitForm: function submitForm() {
+      var _this = this;
+      var formData = {
+        title: this.title,
+        text: this.text,
+        status: this.status
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/tasks', formData).then(function (response) {
+        _this.title = '';
+        _this.text = '';
+        _this.status = 'ToDo';
+        _this.errors = {};
+        window.location.reload();
+      })["catch"](function (error) {
+        if (error.response.status === 422) {
+          _this.errors = error.response.data.errors;
+        }
+      });
     }
   }
 });
@@ -3758,10 +3788,112 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "bg-white p-4 rounded-lg shadow-lg"
   }, [_c("div", {
+    staticClass: "w-full grid justify-items-end"
+  }, [_c("button", {
+    staticClass: "bg-white rounded-md p-2 inline-flex items-end justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: _vm.close
+    }
+  }, [_c("span", {
+    staticClass: "sr-only"
+  }, [_vm._v("Close menu")]), _vm._v(" "), _c("svg", {
+    staticClass: "h-6 w-6",
+    attrs: {
+      xmlns: "http://www.w3.org/2000/svg",
+      fill: "none",
+      viewBox: "0 0 24 24",
+      stroke: "currentColor",
+      "aria-hidden": "true"
+    }
+  }, [_c("path", {
+    attrs: {
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      "stroke-width": "2",
+      d: "M6 18L18 6M6 6l12 12"
+    }
+  })])])]), _vm._v(" "), _c("div", {
     staticClass: "block max-w-md rounded-lg bg-white p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700"
   }, [_c("form", {
-    staticClass: "w-full max-w-lg"
-  }, [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _c("div", {
+    staticClass: "w-full max-w-lg",
+    on: {
+      submit: function submit($event) {
+        $event.preventDefault();
+        return _vm.submitForm.apply(null, arguments);
+      }
+    }
+  }, [_c("div", {
+    staticClass: "flex flex-wrap -mx-3 mb-6"
+  }, [_c("div", {
+    staticClass: "w-full px-3"
+  }, [_c("label", {
+    staticClass: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
+    attrs: {
+      "for": "grid-password"
+    }
+  }, [_vm._v("\n        Task Name\n      ")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.title,
+      expression: "title"
+    }],
+    staticClass: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+    attrs: {
+      id: "grid-password",
+      type: "text",
+      name: "title",
+      placeholder: "title"
+    },
+    domProps: {
+      value: _vm.title
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.title = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _vm.errors.title ? _c("p", {
+    staticClass: "text-red-500 text-xs italic"
+  }, [_vm._v(_vm._s(_vm.errors.title[0]))]) : _vm._e()])]), _vm._v(" "), _c("div", {
+    staticClass: "flex flex-wrap -mx-3 mb-6"
+  }, [_c("div", {
+    staticClass: "w-full px-3"
+  }, [_c("label", {
+    staticClass: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
+    attrs: {
+      "for": "grid-password"
+    }
+  }, [_vm._v("\n        Text\n      ")]), _vm._v(" "), _c("textarea", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.text,
+      expression: "text"
+    }],
+    staticClass: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+    attrs: {
+      id: "grid-password",
+      type: "textarea",
+      name: "text",
+      placeholder: "text"
+    },
+    domProps: {
+      value: _vm.text
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.text = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _vm.errors.text ? _c("p", {
+    staticClass: "text-red-500 text-xs italic"
+  }, [_vm._v(_vm._s(_vm.errors.text[0]))]) : _vm._e()])]), _vm._v(" "), _c("div", {
     staticClass: "flex flex-wrap -mx-3 mb-2"
   }, [_c("div", {
     staticClass: "w-full md:w-[80%] px-3 mb-6 md:mb-0"
@@ -3772,7 +3904,30 @@ var render = function render() {
     }
   }, [_vm._v("\n        Status\n      ")]), _vm._v(" "), _c("div", {
     staticClass: "relative"
-  }, [_vm._m(2), _vm._v(" "), _c("div", {
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.status,
+      expression: "status"
+    }],
+    staticClass: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+    attrs: {
+      name: "status",
+      id: "grid-state"
+    },
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.status = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+      }
+    }
+  }, [_c("option", [_vm._v("ToDo")]), _vm._v(" "), _c("option", [_vm._v("Reject")]), _vm._v(" "), _c("option", [_vm._v("Complete")])]), _vm._v(" "), _c("div", {
     staticClass: "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
   }, [_c("svg", {
     staticClass: "fill-current h-4 w-4",
@@ -3784,68 +3939,18 @@ var render = function render() {
     attrs: {
       d: "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
     }
-  })])])])])])])]), _vm._v(" "), _vm._m(3)])]);
+  })])])])])]), _vm._v(" "), _vm._m(0)])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "flex flex-wrap -mx-3 mb-6"
-  }, [_c("div", {
-    staticClass: "w-full px-3"
-  }, [_c("label", {
-    staticClass: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
-    attrs: {
-      "for": "grid-password"
-    }
-  }, [_vm._v("\n        Task Name\n      ")]), _vm._v(" "), _c("input", {
-    staticClass: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
-    attrs: {
-      id: "grid-password",
-      type: "password",
-      placeholder: "******************"
-    }
-  }), _vm._v(" "), _c("p", {
-    staticClass: "text-gray-600 text-xs italic"
-  }, [_vm._v("Make it as long and as crazy as you'd like")])])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "flex flex-wrap -mx-3 mb-6"
-  }, [_c("div", {
-    staticClass: "w-full px-3"
-  }, [_c("label", {
-    staticClass: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
-    attrs: {
-      "for": "grid-password"
-    }
-  }, [_vm._v("\n        Password\n      ")]), _vm._v(" "), _c("textarea", {
-    staticClass: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
-    attrs: {
-      id: "grid-password",
-      type: "password",
-      placeholder: "******************"
-    }
-  }), _vm._v(" "), _c("p", {
-    staticClass: "text-gray-600 text-xs italic"
-  }, [_vm._v("Make it as long and as crazy as you'd like")])])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("select", {
-    staticClass: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
-    attrs: {
-      id: "grid-state"
-    }
-  }, [_c("option", [_vm._v("ToDo")]), _vm._v(" "), _c("option", [_vm._v("Reject")]), _vm._v(" "), _c("option", [_vm._v("Complete")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
     staticClass: "flex justify-end mt-4"
   }, [_c("button", {
-    staticClass: "px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+    staticClass: "px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600",
+    attrs: {
+      type: "submit"
+    }
   }, [_vm._v("Add Task")])]);
 }];
 render._withStripped = true;
@@ -39834,6 +39939,18 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 				}
 /******/ 			}
 /******/ 			return result;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
 /******/ 		};
 /******/ 	})();
 /******/ 	
