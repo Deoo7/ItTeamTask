@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>My Laravel Vue 2 App</title>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
     @inertia

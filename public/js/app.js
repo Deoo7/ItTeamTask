@@ -3727,7 +3727,9 @@ var render = function render() {
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", [_c("h1", [_vm._v("Welcome to Inertia.js with Laravel 8 and Vue.js 2!")])]);
+  return _c("div", [_c("h1", {
+    staticClass: "text-3xl font-bold underline"
+  }, [_vm._v("\n  Welcome to Inertia.js with Laravel 8 and Vue.js 2!\n  ")])]);
 }];
 render._withStripped = true;
 
