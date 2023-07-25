@@ -11,7 +11,7 @@
       </div>
         <div
   class="block max-w-md rounded-lg bg-white p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
-  <form class="w-full max-w-lg" @submit.prevent="submitForm">
+  <div class="w-full max-w-lg" @submit.prevent="submitForm">
   <div class="flex flex-wrap -mx-3 mb-6">
     <div class="w-full px-3">
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
@@ -37,9 +37,9 @@
       </label>
       <div class="relative">
         <select v-model="status" name="status" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-          <option>ToDo</option>
-          <option>Reject</option>
-          <option>Complete</option>
+          <option :value="'ToDo'" :selected="task.status === 'ToDo'">ToDo</option>
+          <option :value="'Reject'" :selected="task.status === 'Reject'">Reject</option>
+          <option :value="'Complete'" :selected="task.status === 'Complete'">Complete</option>
         </select>
         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
           <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -48,9 +48,9 @@
     </div>
   </div>
   <div class="flex justify-end mt-4">
-            <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">Add Task</button>
+            <button @click="submitForm" type="submit" class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">Update Task</button>
         </div>
-</form>
+</div>
 </div>
       </div>
     </div>
@@ -60,11 +60,17 @@
 import axios from 'axios';
 
 export default {
+  props: {
+    task: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
     return {
-      title: '',
-      text: '',
-      status: 'ToDo',
+      title: this.task.title,
+      text: this.task.text,
+      status: this.task.status,
       errors: {},
     };
   },
@@ -79,21 +85,21 @@ export default {
         status: this.status,
       };
 
-      axios.post('/api/tasks', formData)
+      axios.put(`/api/editTask/${this.task.id}`, formData)
         .then(response => {
-          this.title = '';
-          this.text = '';
-          this.status = 'ToDo';
+          this.task.title = this.title;
+          this.task.text = this.text;
+          this.task.status = this.status;
           this.errors = {};
-          window.location.reload();
+          this.close();
         })
         .catch(error => {
-            if (error.response.status === 422) {
-                this.errors = error.response.data.errors;
+          if (error.response.status === 422) {
+            this.errors = error.response.data.errors;
           }
         });
-    }
-  }
+    },
+  },
 };
 </script>
   

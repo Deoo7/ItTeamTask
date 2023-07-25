@@ -23,7 +23,7 @@
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">{{ task.title }}</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">{{ task.status }}</td>
               <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <a class="text-yellow-500 hover:text-yellow-700" href="#">Edit</a>
+                <a @click="showModalEdit = true; selectTask(task)" class="text-yellow-500 hover:text-yellow-700" href="#">Edit</a>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                 <a  class="text-red-500 hover:text-red-700" @click="removeTask(task.id)" href="#">Remove</a>
@@ -36,20 +36,27 @@
   </div>
 </div>
 <AddTask v-if="showModal" @close="showModal = false" />
+<EditTask v-if="showModalEdit" :task="selectedTask" @close="showModalEdit = false" />
+
 </div>
 </template>
 
 <script>
 import AddTask from './AddTask.vue';
+import EditTask from './EditTask.vue';
+
 
 export default {
   name: "Welcome",
   components: {
     AddTask,
+    EditTask,
   },
   data() {
     return {
       showModal: false,
+      showModalEdit: false,
+      selectedTask: null,
     };
   },
   computed: {
@@ -65,7 +72,7 @@ export default {
   methods:{
     removeTask(Id) {
       if (confirm('Are you sure you want to remove this task?')) {
-        axios.delete(`api/task/${Id}`)
+        axios.delete(`api/removeTask/${Id}`)
           .then(() => {
             this.$store.commit('removeTask', Id);
             window.location.reload();
@@ -74,6 +81,9 @@ export default {
             console.error('Error removing task:', error);
           });
       }
+    },
+    selectTask(task) {
+      this.selectedTask = task;
     },
   }
 };

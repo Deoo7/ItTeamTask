@@ -22,5 +22,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::controller(TaskController::class)->group(function () {
     Route::get('/list', 'getList');
     Route::post('/tasks', 'store');
-    Route::delete('/task/{id}', 'destroy');
+    Route::delete('/removeTask/{id}', 'destroy');
+    Route::put('/editTask/{id}', 'edit');
 });
