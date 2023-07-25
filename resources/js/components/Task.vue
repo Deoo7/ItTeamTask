@@ -17,59 +17,11 @@
               <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Remove</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-            <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">John Brown</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">45</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">New York No. 1 Lake Park</td>
-              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <a class="text-blue-500 hover:text-blue-700" href="#">Edit</a>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <a class="text-blue-500 hover:text-blue-700" href="#">Remove</a>
-              </td>
-            </tr>
-
-            <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">Jim Green</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">27</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">London No. 1 Lake Park</td>
-              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <a class="text-blue-500 hover:text-blue-700" href="#">Edit</a>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <a class="text-blue-500 hover:text-blue-700" href="#">Remove</a>
-              </td>
-            </tr>
-
-            <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">Joe Black</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">31</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">Sidney No. 1 Lake Park</td>
-              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <a class="text-blue-500 hover:text-blue-700" href="#">Edit</a>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <a class="text-blue-500 hover:text-blue-700" href="#">Remove</a>
-              </td>
-            </tr>
-
-            <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">Edward King</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">16</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">LA No. 1 Lake Park</td>
-              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <a class="text-blue-500 hover:text-blue-700" href="#">Edit</a>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <a class="text-blue-500 hover:text-blue-700" href="#">Remove</a>
-              </td>
-            </tr>
-
-            <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">Jim Red</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">45</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">Melbourne No. 1 Lake Park</td>
+          <tbody v-if="tasks.length" class="divide-y divide-gray-200 dark:divide-gray-700">
+            <tr v-for="task in tasks" :key="task.id" class="hover:bg-gray-100 dark:hover:bg-gray-700">
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">{{ task.id }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">{{ task.title }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">{{ task.status }}</td>
               <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                 <a class="text-blue-500 hover:text-blue-700" href="#">Edit</a>
               </td>
@@ -99,6 +51,16 @@ export default {
     return {
       showModal: false,
     };
+  },
+  computed: {
+    tasks() {
+      return this.$store.state.tasks;
+    },
+  },
+  created() {
+    if (!this.tasks.length) {
+      this.$store.dispatch('fetchTasks');
+    }
   },
 };
 </script>

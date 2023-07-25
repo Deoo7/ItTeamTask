@@ -10,7 +10,14 @@ use App\Models\Task;
 class TaskController extends Controller
 {
     public function index(){
-        return Inertia::render('Task');
+        $tasks = Task::all();
+        return Inertia::render('Task', ['tasks', $tasks]);
+    }
+    public function test(){
+        $tasks = Task::all();
+        // return Inertia::render('Task', ['tasks', $tasks]);
+        
+        return response()->json($tasks);
     }
 
     public function store(StoreTaskRequest $request)

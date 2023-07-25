@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@inertiajs/inertia": "^0.11.1",
-    "@inertiajs/inertia-vue": "^0.8.0"
+    "@inertiajs/inertia-vue": "^0.8.0",
+    "vuex": "^3.4.0"
   }
 }
