@@ -26,7 +26,7 @@
                 <a class="text-yellow-500 hover:text-yellow-700" href="#">Edit</a>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <a class="text-red-500 hover:text-red-700" href="#">Remove</a>
+                <a  class="text-red-500 hover:text-red-700" @click="removeTask(task.id)" href="#">Remove</a>
               </td>
             </tr>
           </tbody>
@@ -62,5 +62,19 @@ export default {
       this.$store.dispatch('fetchTasks');
     }
   },
+  methods:{
+    removeTask(Id) {
+      if (confirm('Are you sure you want to remove this task?')) {
+        axios.delete(`api/task/${Id}`)
+          .then(() => {
+            this.$store.commit('removeTask', Id);
+            window.location.reload();
+          })
+          .catch((error) => {
+            console.error('Error removing task:', error);
+          });
+      }
+    },
+  }
 };
 </script>

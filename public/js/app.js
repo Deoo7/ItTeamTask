@@ -3773,6 +3773,19 @@ __webpack_require__.r(__webpack_exports__);
     if (!this.tasks.length) {
       this.$store.dispatch('fetchTasks');
     }
+  },
+  methods: {
+    removeTask: function removeTask(Id) {
+      var _this = this;
+      if (confirm('Are you sure you want to remove this task?')) {
+        axios["delete"]("api/task/".concat(Id)).then(function () {
+          _this.$store.commit('removeTask', Id);
+          window.location.reload();
+        })["catch"](function (error) {
+          console.error('Error removing task:', error);
+        });
+      }
+    }
   }
 });
 
@@ -4020,7 +4033,19 @@ var render = function render() {
       staticClass: "px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200"
     }, [_vm._v(_vm._s(task.title))]), _vm._v(" "), _c("td", {
       staticClass: "px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200"
-    }, [_vm._v(_vm._s(task.status))]), _vm._v(" "), _vm._m(1, true), _vm._v(" "), _vm._m(2, true)]);
+    }, [_vm._v(_vm._s(task.status))]), _vm._v(" "), _vm._m(1, true), _vm._v(" "), _c("td", {
+      staticClass: "px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
+    }, [_c("a", {
+      staticClass: "text-red-500 hover:text-red-700",
+      attrs: {
+        href: "#"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.removeTask(task.id);
+        }
+      }
+    }, [_vm._v("Remove")])])]);
   }), 0) : _vm._e()])])])])]), _vm._v(" "), _vm.showModal ? _c("AddTask", {
     on: {
       close: function close($event) {
@@ -4069,17 +4094,6 @@ var staticRenderFns = [function () {
       href: "#"
     }
   }, [_vm._v("Edit")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("td", {
-    staticClass: "px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
-  }, [_c("a", {
-    staticClass: "text-red-500 hover:text-red-700",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Remove")])]);
 }];
 render._withStripped = true;
 

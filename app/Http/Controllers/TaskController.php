@@ -13,11 +13,20 @@ class TaskController extends Controller
         $tasks = Task::all();
         return Inertia::render('Task', ['tasks', $tasks]);
     }
+
     public function getList(){
         $tasks = Task::all();
         // return Inertia::render('Task', ['tasks', $tasks]);
         
         return response()->json($tasks);
+    }
+
+    public function destroy(Request $request)
+    {
+        $task = Task::find($request->id);
+        $task->delete();
+        
+        return response()->noContent();
     }
 
     public function store(StoreTaskRequest $request)
