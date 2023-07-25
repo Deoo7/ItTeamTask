@@ -3957,7 +3957,7 @@ var staticRenderFns = [function () {
   return _c("div", {
     staticClass: "flex justify-end mt-4"
   }, [_c("button", {
-    staticClass: "px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600",
+    staticClass: "px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600",
     attrs: {
       type: "submit"
     }
@@ -4064,7 +4064,7 @@ var staticRenderFns = [function () {
   return _c("td", {
     staticClass: "px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
   }, [_c("a", {
-    staticClass: "text-blue-500 hover:text-blue-700",
+    staticClass: "text-yellow-500 hover:text-yellow-700",
     attrs: {
       href: "#"
     }
@@ -4075,7 +4075,7 @@ var staticRenderFns = [function () {
   return _c("td", {
     staticClass: "px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
   }, [_c("a", {
-    staticClass: "text-blue-500 hover:text-blue-700",
+    staticClass: "text-red-500 hover:text-red-700",
     attrs: {
       href: "#"
     }

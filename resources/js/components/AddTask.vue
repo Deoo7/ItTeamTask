@@ -49,7 +49,7 @@
     </div>
   </div>
   <div class="flex justify-end mt-4">
-            <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Add Task</button>
+            <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">Add Task</button>
         </div>
 </form>
 </div>

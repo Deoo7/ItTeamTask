@@ -13,7 +13,7 @@ class TaskController extends Controller
         $tasks = Task::all();
         return Inertia::render('Task', ['tasks', $tasks]);
     }
-    public function test(){
+    public function getList(){
         $tasks = Task::all();
         // return Inertia::render('Task', ['tasks', $tasks]);
         

@@ -23,10 +23,10 @@
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">{{ task.title }}</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">{{ task.status }}</td>
               <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <a class="text-blue-500 hover:text-blue-700" href="#">Edit</a>
+                <a class="text-yellow-500 hover:text-yellow-700" href="#">Edit</a>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <a class="text-blue-500 hover:text-blue-700" href="#">Remove</a>
+                <a class="text-red-500 hover:text-red-700" href="#">Remove</a>
               </td>
             </tr>
           </tbody>

@@ -20,6 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::controller(TaskController::class)->group(function () {
-    Route::get('/list', 'test');
+    Route::get('/list', 'getList');
     Route::post('/tasks', 'store');
 });
